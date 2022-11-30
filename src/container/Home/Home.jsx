@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import YoutubeComp from '../../component/YoutubeComp/YoutubeComp'
+// import YoutubeComp from '../../component/YoutubeComp/YoutubeComp'
+import Product from '../Product/Product'
 
 export class Home extends Component {
   render() {
     return (
       <div>
-        <h2>Youtube Components</h2>
+        {/* <h2>Youtube Components</h2>
+        <hr />
         <YoutubeComp 
             img='https://raw.githubusercontent.com/faizbyp/keindahan-alam/master/img/calum-lewis-srxmFx025MI-unsplash.jpg'
             time='12.34' 
@@ -26,7 +28,9 @@ export class Home extends Component {
             time='24.12' 
             title='Yutub Ampek' 
             desc='Lorem Ipsum Dolor Sit Amet' />
-        <YoutubeComp />
+        <YoutubeComp /> */}
+
+        <Product />
       </div>
     )
   }
