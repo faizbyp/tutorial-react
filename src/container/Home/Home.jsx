@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import LifeCycleComp from '../LifeCycleComp/LifeCycleComp'
 // import YoutubeComp from '../../component/YoutubeComp/YoutubeComp'
-import Product from '../Product/Product'
+// import Product from '../Product/Product'
 
 export class Home extends Component {
   render() {
@@ -30,7 +31,13 @@ export class Home extends Component {
             desc='Lorem Ipsum Dolor Sit Amet' />
         <YoutubeComp /> */}
 
-        <Product />
+        {/* <h2>Product Component</h2>
+        <hr />
+        <Product /> */}
+
+        <h2>LifeCycle Component</h2>
+        <hr />
+        <LifeCycleComp />
       </div>
     )
   }
