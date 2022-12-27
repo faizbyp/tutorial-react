@@ -5,15 +5,31 @@ import axios from 'axios'
 
 export class BlogPost extends Component {
   state = {
-    post: []
+    post: [],
+    formBlogPost: {
+      userId: 1,
+      id: 1,
+      title: '',
+      body: ''
+    }
   }
 
   getPostAPI = () => {
-    axios.get('http://localhost:3004/posts')
+    axios.get('http://localhost:3004/posts?_sort=id&_order=desc')
       .then((res) => {
         this.setState({
           post: res.data
         })
+      })
+  }
+
+  postDataToAPI = () => {
+    axios.post('http://localhost:3004/posts', this.state.formBlogPost)
+      .then((res) => {
+        console.log(res)
+        this.getPostAPI()
+      }, (err) => {
+        console.log('error: ', err)
       })
   }
 
@@ -24,14 +40,25 @@ export class BlogPost extends Component {
     })
   }
 
+  handleFormChange = (event) => {
+    console.log('breubah cuy')
+    let formBlogPostNew = {...this.state.formBlogPost}
+    let timestamp = new Date().getTime()
+    formBlogPostNew['id'] = timestamp // Buat id dengan timestamp agar unik
+    formBlogPostNew[event.target.name] = event.target.value // Memasukkan value ke dalam variabel sementara (sblm value masuk ke state)
+    this.setState({
+      formBlogPost: formBlogPostNew
+    }, () => {
+      console.log(this.state.formBlogPost)
+    })
+  }
+
+  handleSubmit = () => {
+    console.log('sambit coy')
+    this.postDataToAPI()
+  }
+
   componentDidMount(){
-    // fetch('https://jsonplaceholder.typicode.com/posts')
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     this.setState({
-    //       post: json
-    //     })
-    //   })
     this.getPostAPI()
   }
 
@@ -39,6 +66,13 @@ export class BlogPost extends Component {
     return (
       <Fragment>
         <p className='section-title'>BlogPost</p>
+        <div>
+          <label htmlFor="title">Title</label> <br />
+          <input type="text" name="title" placeholder='Type the title' onChange={this.handleFormChange} /> <br />
+          <label htmlFor="body">Body</label> <br />
+          <input type="text" name="body" placeholder='Type your blog' onChange={this.handleFormChange} /> <br />
+          <button type="submit" onClick={this.handleSubmit}>Simpan</button>
+        </div>
         {
           this.state.post.map(post => {
             return <Post key={post.id} data={post} remove={this.handleRemove} />
